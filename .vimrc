@@ -56,6 +56,7 @@ set encoding=utf-8
 set t_ut=                           " tmux環境での背景描画の対策
 
 set list
+" set listchars=tab:»\ ,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 set listchars=tab:»\ ,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 hi SpecialKey guibg=NONE guifg=Gray40
 hi NonText guibg=NONE guifg=DarkGreen
@@ -103,7 +104,9 @@ set history=1000      " コマンド・検索パターンの履歴数
 set wildmode=list:longest,full
 set completeopt=menu,preview,menuone
 set completeopt=menuone
-set tags=~/.vim/systags,./tags,../tags,./*/tags,~/.tags/*/tags
+" set tags=~/.vim/systags,./tags,../tags,./*/tags,~/.tags/*/tags
+set tags=./tags;~/.vim/systags,./*/tags,~/.tags/*/tags
+
 
 "<TAB>で補完(Tabを押した時に、空行ならTab、違ければ補完)
 " {{{ Autocompletion using the TAB key
@@ -145,10 +148,11 @@ map  <C-s> <Esc>:w<CR>
 imap <C-s> <Esc>:w<CR>a
 map  <C-q> <Esc>:q<CR>
 imap <C-q> <Esc>:q<CR>a
-imap <C-X> <Esc>dda
+" imap <C-X> <Esc>dda
 map  <C-z> g-
 imap <C-z> <Esc>g-i
 imap <C-r> <Esc><C-r>i
+nnoremap <C-]> g<C-]>
 
 " 範囲指定 Shift左右で範囲指定開始、Shift上下で行指定開始
 nmap <S-Up>    V
@@ -220,6 +224,7 @@ NeoBundle 'tomtom/tcomment_vim'   " コメントON/OFFをCtrl+- x2で実行
 NeoBundle 'tpope/vim-endwise'     " Rubyでendを自動補完
 NeoBundle 'Yggdroot/indentLine'     "インデント自動色分け
     let g:indentLine_color_term = 239
+    " let g:indentLine_char = '￤'
 
 " NeoBundle 'tpope/vim-surround'    " 囲み文字を対象にするテキストオブジェクト(s)を追加するプラグイン
     " ys[範囲][記号] -> 記号で範囲を囲む cs[記号] -> 記号を置換  ds[記号] -> 記号を削除   S[記号] -> 選択範囲を記号で囲む
