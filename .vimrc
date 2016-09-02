@@ -3,6 +3,7 @@ scriptencoding utf-8
 "諸々の設定
 filetype plugin indent on
 set number
+" set relativenumber
 set title
 set showmatch
 set tabstop=4
@@ -57,7 +58,7 @@ set t_ut=                           " tmux環境での背景描画の対策
 
 set list
 " set listchars=tab:»\ ,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
-set listchars=tab:»\ ,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set listchars=tab:»\ ,trail:\ ,eol:↲,extends:»,precedes:«,nbsp:%
 hi SpecialKey guibg=NONE guifg=Gray40
 hi NonText guibg=NONE guifg=DarkGreen
 
@@ -153,6 +154,7 @@ map  <C-z> g-
 imap <C-z> <Esc>g-i
 imap <C-r> <Esc><C-r>i
 nnoremap <C-]> g<C-]>
+nnoremap <F3> :<C-u>setlocal relativenumber!<CR>
 
 " 範囲指定 Shift左右で範囲指定開始、Shift上下で行指定開始
 nmap <S-Up>    V
