@@ -37,7 +37,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -88,17 +88,9 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -lF'
-alias la='ls -a'
+alias ll='ls -alF'
+alias la='ls -A'
 alias l='ls -CF'
-
-alias GB='git branch'
-alias GC='git checkout'
-alias p8='ping 8.8.8.8'
-
-alias vim='vim.gnome-py2'
-
-export PATH="$HOME/bin:$PATH"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -124,112 +116,55 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH="$HOME/.rbenv/bin:$PATH:/usr/lib/bin"
-eval "$(rbenv init -)"
+PATH="$PATH:/mnt/c/Windows/"
+PATH="$PATH:/mnt/c/Windows/System32/"
+export DISPLAY=localhost:0.0
+# export "LIBGL_ALWAYS_INDIRECT=1"
 
-alias lla='ls -la'
-alias cd..='cd ..'
-alias open='gnome-open'
-alias FIND='sudo find / -name $1 2> /dev/null'
 
-stty -ixon -ixoff
 
-export PS1='\u:\W\$ '
-export PS1="\`if [ \$? = 0 ];then echo \[\e[33m\];els echo \[\e[31m\];fi\`[\#]\u:\w\[\e[0m\]\$ "
+alias g="g++ -O3 -std=gnu++14"
+alias c="clip.exe"
+# source ~/qmk_utils/activate_wsl.sh
 
-# 偶奇判定
-oddQ() {
-    if [ $(( $1 & 1 )) = 1 ]; then
-        true;
-    else
-        false;
-    fi
+alias agen="echo Contest : \${PWD##*/}; echo; atcoder-tools gen \${PWD##*/} --workspace ..  --template ../misc/cpp_template.cpp"
+
+sps() {
+   pwd | sed "s@^${HOME}@~@" | sed -r 's@([^/][^/])[^/][^/]+/@\1*/@g'
 }
-#コマンドを打つごとに文字の色を変える
-# PS1="`if(oddQ \#); then echo -e \[\e[1;0m\]; else echo -e  \[\e[1;34m\]; fi `[\u@\h:\w]$ "
 
-# export PS1="`if(oddQ \#); then echo \[\e[0m\]; else echo  \[\e[34m\]; fi `[\u@\h:\w]$ "
+PS1="\`if [ \$? = 0 ];
+then echo -n \[\e[01m\]\[\e[33m\]\u\[\e[0m\]\[\e[33m\]@\h:\[\e[0m\];pwd|sed \"s@^${HOME}@~@\"|rev|cut -d'/' -f1-2|rev|sed \"s@/@\[\e[01m\]\[\e[33m\]/@\";
+else echo -n \[\e[01m\]\[\e[31m\]\u\[\e[0m\]\[\e[31m\]@\h:\[\e[0m\];pwd|sed \"s@^${HOME}@~@\"|rev|cut -d'/' -f1-2|rev|sed \"s@/@\[\e[01m\]\[\e[31m\]/@\";
+fi\`\[\e[0m\]$ "
 
-oddS() {
-    #hoge=$((1+hoge))
-    if [ $hoge = 1  ]; then
-        false
-    else
-        true
-    fi
-}
-#PS1="`if(oddS); then echo \[\e[0m\]; else echo  \[\e[34m\]; fi `[\u@\h:\w]$ "
-#PS1="\`hoge=$((1+hoge));echo $hoge;if [ $hoge = 0 ];then echo \[\e[33m\];else echo \[\e[31m\];fi;\`[\#]\u:\w\[\e[0m\]\$ " 
-#PS1="\`if(oddQ \#); then echo \[\e[33m\];else echo \[\e[31m\];fi;\`[\#]\u:\w\[\e[0m\]\$ " 
-
-#PS1="\`if(oddQ \#); then echo \[\e[0m\];else echo \[\e[01m\];fi;if [ \$? = 0 ];then echo \[\e[33m\];else echo \[\e[31m\];fi\`\u:\w\[\e[0m\]\$ "
-PS1="\`if(oddQ \#); then echo \[\e[0m\];else echo \[\e[01m\];fi\`\`if [ \$? = 0 ];then echo \[\e[33m\];else echo \[\e[31m\];fi\`\u:\w\[\e[0m\]\$ "
+PS1="\`if [ \$? = 0 ];
+then echo -n \[\e[01m\]\[\e[33m\]\u\[\e[22m\]@\h:\[\e[2m\];
+else echo -n \[\e[01m\]\[\e[31m\]\u\[\e[22m\]@\h:\[\e[2m\];
+fi; pwd|sed \"s@^${HOME}@~@\"|rev|cut -d'/' -f1-2|rev|sed \"s@/@\[\e[22m\]\[\e[1m\]/@\";\`\[\e[0m\]$ "
 
 
-PS1="\`if [ \$? = 0 ];then if(oddQ \#);then echo \[\e[33m\];else echo \[\e[01m\]\[\e[33m\];fi;
-else if(oddQ \#);then echo \[\e[31m\];else echo \[\e[01m\]\[\e[31m\];fi;fi\`\u:\W\\[\e[0m\]$ "
+PS1="\`if [ \$? = 0 ];
+then echo -n \[\e[1m\]\[\e[33m\]\u\[\e[22m\]\[\e[2m\]@\h:\[\e[22m\]\[\e[4m\];
+else echo -n \[\e[1m\]\[\e[31m\]\u\[\e[22m\]\[\e[2m\]@\h:\[\e[22m\]\[\e[4m\];
+fi; pwd|sed \"s@^${HOME}@~@\"|rev|cut -d'/' -f1-2|rev|sed \"s@/@\[\e[24m\]\[\e[1m\]/@\";\`\[\e[0m\]$ "
+
+PS1='$(eval sps)$ '
+
+
+PS1="\`if [ \$? = 0 ];
+then echo -n \[\e[1m\]\[\e[33m\]\u\[\e[22m\]\[\e[2m\]@\h:\[\e[22m\]\[\e[4m\];
+else echo -n \[\e[1m\]\[\e[31m\]\u\[\e[22m\]\[\e[2m\]@\h:\[\e[22m\]\[\e[4m\];
+fi; eval sps | rev |sed \"s@/@/|@\" | rev | sed \"s@|/@\[\e[24m\]/\[\e[1m\]@\";\`\[\e[0m\]$ "
+
 
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
+# export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):58
+
+_termtitle="[\`pwd|sed \"s@^${HOME}@~@\"|rev|cut -d'/' -f1-2|rev\`] \h"
+PS1="${PS1}\[\e]0;${_termtitle}\007\]"
 
 
-export TERM='xterm-256color'
+function mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
-function is_exists() { type "$1" >/dev/null 2>&1; return $?; }
-function is_osx() { [[ $OSTYPE == darwin* ]]; }
-function is_screen_running() { [ ! -z "$STY" ]; }
-function is_tmux_runnning() { [ ! -z "$TMUX" ]; }
-function is_screen_or_tmux_running() { is_screen_running || is_tmux_runnning; }
-function shell_has_started_interactively() { [ ! -z "$PS1" ]; }
-function is_ssh_running() { [ ! -z "$SSH_CONECTION" ]; }
-
-function tmux_automatically_attach_session()
-{
-    if is_screen_or_tmux_running; then
-        ! is_exists 'tmux' && return 1
-
-        if is_tmux_runnning; then
-            echo "TMUX."
-        elif is_screen_running; then
-            echo "This is on screen."
-        fi
-    else
-        if shell_has_started_interactively && ! is_ssh_running; then
-            if ! is_exists 'tmux'; then
-                echo 'Error: tmux command not found' 2>&1
-                return 1
-            fi
-
-            if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
-                # detached session exists
-                tmux list-sessions
-                echo -n "Tmux: attach? (y/N/num) "
-                read
-                if [[ "$REPLY" =~ ^[Yy]$ ]] || [[ "$REPLY" == '' ]]; then
-                    tmux attach-session
-                    if [ $? -eq 0 ]; then
-                        echo "$(tmux -V) attached session"
-                        return 0
-                    fi
-                elif [[ "$REPLY" =~ ^[0-9]+$ ]]; then
-                    tmux attach -t "$REPLY"
-                    if [ $? -eq 0 ]; then
-                        echo "$(tmux -V) attached session"
-                        return 0
-                    fi
-                fi
-            fi
-
-            if is_osx && is_exists 'reattach-to-user-namespace'; then
-                # on OS X force tmux's default command
-                # to spawn a shell in the user's namespace
-                tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
-                tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported OS X"
-            else
-                tmux new-session && echo "tmux created new session"
-            fi
-        fi
-    fi
-}
-tmux_automatically_attach_session
-if [[ $TMUX ]]; then source ~/.tmux-git/tmux-git.sh; fi
